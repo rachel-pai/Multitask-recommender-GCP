@@ -1,0 +1,108 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Baby Weight Predictor</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
+</head>
+
+<body layout-fill layout="column" layout-align="center" ng-app="myApp" ng-cloak style="background-color: #efefef" ng-controller="myCtrl">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <span>article recommender</span>
+    </div>
+  </md-toolbar>
+  <md-content>
+      <div layout="row" layout-align="center">
+          <md-card layout-fill>
+      <md-card-content>
+        <p><em>Example application to predict a top 10 recommended content.</em></p>
+       </md-card-content>
+    </md-card>
+      </div>
+      <div layout="row" layout-align="center">
+          <md-card layout-fill>
+              <md-card-content>
+                  <md-input-container layout-fill>
+                    <label>clientId</label>
+                    <input ng-model="data.clientId" placeholder="eg.,1606168">
+                  </md-input-container>
+              </md-card-content>
+              <md-card-content>
+                  <md-input-container layout-fill>
+                    <label>organization</label>
+                    <input ng-model="data.organization" placeholder="e.g.,leeromgeving">
+                  </md-input-container>
+            </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-click="submit()" class="md-accent md-raised">Predict</md-button>
+      </md-card-actions>
+          </md-card></div>
+            <div layout="row" layout-align="center">
+    <md-card layout-fill>
+        <md-card-content>
+            <div layout="row" layout-align="space-between center">
+                <span>Prediction Top 10 articles (format: predict url: probebility)</span>
+            </div>
+            <div layout="row"><p>{: result['output_2'][0] :} : {: result['output_1'][0] :}</p></div>
+            <md-divider></md-divider>
+            <div layout="row"><p>{: result['output_2'][1] :} : {: result['output_1'][1] :}</p></div>
+            <md-divider></md-divider>
+            <div layout="row"><p>{: result['output_2'][2] :} : {: result['output_1'][2] :}</p></div>
+            <md-divider></md-divider>
+            <div layout="row"><p>{: result['output_2'][3] :} : {: result['output_1'][3] :}</p></div>
+            <md-divider></md-divider>
+            <div layout="row"><p>{: result['output_2'][4] :} : {: result['output_1'][4] :}</p></div>
+            <md-divider></md-divider>
+            <div layout="row"><p>{: result['output_2'][5] :} : {: result['output_1'][5] :}</p></div>
+            <md-divider></md-divider>
+            <div layout="row"><p>{: result['output_2'][6] :} : {: result['output_1'][6] :}</p></div>
+            <md-divider></md-divider>
+            <div layout="row"><p>{: result['output_2'][7] :} : {: result['output_1'][7] :}</p></div>
+            <md-divider></md-divider>
+            <div layout="row"><p>{: result['output_2'][8] :} : {: result['output_1'][8] :}</p></div>
+            <md-divider></md-divider>
+            <div layout="row"><p>{: result['output_2'][9] :} : {: result['output_1'][9] :}</p></div>
+      </md-card-content>
+    </md-card>
+            </div>
+  </md-content>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+
+  <script>
+    var app = angular.module('myApp', ['ngMaterial']);
+    app.config(['$interpolateProvider', function($interpolateProvider) {
+      $interpolateProvider.startSymbol('{:');
+      $interpolateProvider.endSymbol(':}');
+    }]);
+    app.config(function($mdThemingProvider) {
+      $mdThemingProvider.theme('default')
+        .primaryPalette('blue-grey')
+        .accentPalette('orange');
+    });
+    app.controller('myCtrl', ['$scope', '$http',
+      function($scope, $http) {
+        $scope.data = {};
+        $scope.submit = function() {
+          $scope.result = "Wait...";
+          $http({
+            method : 'POST',
+            url : '/predict',
+            data: $scope.data
+          }).success(function(data, status, headers, config) {
+            $scope.result = data[0];
+          }).error(function(data, status, headers, config) {
+            $scope.result = 'Error';
+          });
+        }
+      }
+    ]);
+  </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+name: deploymodel
+description: |
+  This component deploys a trained buddieRec model on GCP as buddieRec:tfrs.
+  It takes as argument a GCS bucket and expects the model to deploy
+  to be found at gs://<BUCKET>/buddieRec/model/export/savedmodel/
+inputs:
+  - {name: Input Bucket , type: String, description: 'GCS directory path.'}
+
+implementation:
+  container:
+    image: gcr.io/PROJECT/buddieRec-deploymodel
+    args: [
+       {inputValue: Input Bucket},
+    ]
