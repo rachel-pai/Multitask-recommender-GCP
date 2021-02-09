@@ -1,12 +1,24 @@
-# Build recommenders on GCP
+# Build multitask recommenders on GCP
 
-### tech:
+## Data Structure:
+- user model(query model): using features: `userId` and `organization` 
+- article model(candidate model): `contentId`
+- mutlitask recommender: 
+    - framework: tensorflow-recommender
+    - predicting:
+        1. predict time spend on pages
+        2. predict article wachtes
+    
+### File Strcture:
 - [serving](serving): CI/CD; kubflow; ai-platform; bigquery; tensorflow-recommenders
-- [application](application): google app engine
+  ![pics/img.png](img.png)
+- [application](application): serving model predicting API with google app engine
+  ![pics/img_1.png](img_1.png)
 - [streaming](streaming): dataflow; bigquery;
-
-### global environment:
-Globlly change the varibale into your version:
+  ![pics/img_2.png](img_2.png)
+  
+### Global environment:
+Change below environment variables into your version:
 - model name: `tfrs`
 - model version: `mf`
 - project name: `buddie-270710`
