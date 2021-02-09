@@ -11,11 +11,11 @@
     
 ### File Strcture:
 - [serving](serving): CI/CD; kubflow; ai-platform; bigquery; tensorflow-recommenders
-  ![pics/img.png](img.png)
+  ![img.png](pics/img.png)
 - [application](application): serving model predicting API with google app engine
-  ![pics/img_1.png](img_1.png)
+  ![img_1.png](pics/img_1.png)
 - [streaming](streaming): dataflow; bigquery;
-  ![pics/img_2.png](img_2.png)
+  ![img_2.png](pics/img_2.png)
   
 ### Global environment:
 Change below environment variables into your version:
